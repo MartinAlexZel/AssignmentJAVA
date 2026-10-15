@@ -1,4 +1,5 @@
 package repository;
+import exceptions.exception;
 import model.vegetable;
 public class InMemoryRepo implements Repository {
     private vegetable[] vegetables;
@@ -10,8 +11,8 @@ public class InMemoryRepo implements Repository {
     }
     @Override
     public void add(vegetable veg){
-        if(size+1 == capacity){
-            return;
+        if(size >= capacity){
+            throw new exception("Capacity reached");
         }
         vegetables[size]=veg;
         size++;
@@ -19,7 +20,7 @@ public class InMemoryRepo implements Repository {
     @Override
     public void remove(int index){
         if(index>=size || index<0){
-            return;
+            throw new exception("Index out of bounds");
         }
         for(int i=index;i<size-1;i++){
             vegetables[i]=vegetables[i+1];

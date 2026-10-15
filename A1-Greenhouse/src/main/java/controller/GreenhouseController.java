@@ -1,5 +1,6 @@
 package controller;
 import model.vegetable;
+import repository.InMemoryRepo;
 import repository.Repository;
 
 public class GreenhouseController {
@@ -13,14 +14,17 @@ public class GreenhouseController {
     public void removeVeg(int index){
         repo.remove(index);
     }
-    public void displayHeavyVegetables(){
+    public vegetable[] displayHeavyVegetables(){
         vegetable[] veggies = repo.getAll();
         int currentsize = repo.getSize();
-        IO.println("Vegetables with the weight over 0.2 kg are: ");
+         vegetable[] newveggies= new vegetable[currentsize];
+        int count=0;
         for(int i=0;i<currentsize;i++){
             if(veggies[i].checkWeight()){
-                IO.println(veggies[i].getName() + " with a weight of "+veggies[i].getWeight()+" kg");
+                newveggies[count]=veggies[i];
+                count++;
             }
         }
+        return newveggies;
     }
 }
